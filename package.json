@@ -9,6 +9,11 @@
   "author": "jins",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "pg": "^8.11.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.16"
   }
 }
