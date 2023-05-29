@@ -5,6 +5,8 @@ const express = require("express")
 const { pizzasRouter } = require("./pizzas/pizza.router")
 const { ordersRouter } = require("./orders/order.router")
 const app = express()
+const cors = require('cors')
+app.use(cors())
 app.use(express.json())
 connect()
 

@@ -1,15 +1,28 @@
 const pizzasRouter = require("express").Router();
-
+const { connect } = require("../app-data-source")
 const pizzaEntity = require("./pizza.entity")
 
+
+
 // use query params to limit and for pagination using typeorm
-pizzasRouter.get("/:id?perPage=10", async(req,res)=>{
+        //http://localhost:3000/pizzas?page=1&perPage=10
+pizzasRouter.get("/", async(req,res)=>{
     let message = "", status;
     try{
+        const take = parseInt(req.query.perPage)
+        const skip = (parseInt(req.query.page) -1) * take
+        
         const connection = await connect()
         const pizzas = await connection.getRepository(pizzaEntity).find({
-            id: req.params.id,
-        })
+             relations: {
+            "price-size": true,
+        }},
+        {
+            take:take,
+            skip:skip
+        }
+            
+       )
         status = 200;
         message = pizzas;
     }catch(e){
