@@ -1,6 +1,6 @@
 const pizzasRouter = require("express").Router();
 const { connect } = require("../app-data-source")
-const pizzaEntity = require("./pizza.entity")
+const pizzasEntity = require("./pizzas.entity")
 
 
 
@@ -13,16 +13,13 @@ pizzasRouter.get("/", async(req,res)=>{
         const skip = (parseInt(req.query.page) -1) * take
         
         const connection = await connect()
-        const pizzas = await connection.getRepository(pizzaEntity).find({
+        const pizzas = await connection.getRepository(pizzasEntity).find({
+            take,
+            skip,
              relations: {
-            "price-size": true,
-        }},
-        {
-            take:take,
-            skip:skip
-        }
-            
-       )
+              "pricesAndSizes": true,
+            }
+        })
         status = 200;
         message = pizzas;
     }catch(e){
@@ -37,8 +34,8 @@ pizzasRouter.post("/", async(req,res)=>{
     let message = "", status;
     try{
         const connection = await connect()
-        const pizzaData = await connection.getRepository(pizzaEntity).create(req.body)
-        const results = await connection.getRepository(pizzaEntity).save(pizzaData)
+        const pizzaData = await connection.getRepository(pizzasEntity).create(req.body)
+        const results = await connection.getRepository(pizzasEntity).save(pizzaData)
         status = 200;
         message = results;
     }catch(e){
@@ -53,8 +50,8 @@ pizzasRouter.put("/:id", async(req,res)=>{
     try{
         const connection = await connect()
         const id = request.params.id
-        const pizzaData = await connection.getRepository(pizzaEntity).create(req.body)
-        const results = await connection.getRepository(pizzaEntity).update({...pizzaData},{id})
+        const pizzaData = await connection.getRepository(pizzasEntity).create(req.body)
+        const results = await connection.getRepository(pizzasEntity).update({...pizzaData},{id})
         status = 200;
         message = results;
     }catch(e){
@@ -73,8 +70,8 @@ pizzasRouter.delete("/:id", async (req,res)=>{
     try{
         const connection = await connect()
         //const id = request.params.id
-        const pizzaData = await connection.getRepository(pizzaEntity).create(req.body)
-        const results = await connection.getRepository(pizzaEntity).save(pizzaData)
+        const pizzaData = await connection.getRepository(pizzasEntity).create(req.body)
+        const results = await connection.getRepository(pizzasEntity).save(pizzaData)
         status = 200;
         message = results;
     }catch(e){
