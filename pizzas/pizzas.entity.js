@@ -20,17 +20,12 @@ module.exports =  new EntitySchema({
         },
     },
     relations: {
-        "price-size": {
-            target: "price-size",
+        pricesAndSizes: {
+            target: "pizzas-prices-sizes",
             type: "one-to-many",
-            joinTable: true,
+            inverseSide:"pizzas",
             cascade: true,
         },
-      
     },
-
-
-    },
-
-    
+},  
 )

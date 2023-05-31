@@ -1,9 +1,9 @@
 const EntitySchema = require("typeorm").EntitySchema
-const PizzaSize = [ "Small","Medium","Large",]
+const { PizzaSizes } = require("./pizzas-sizes.enum")
 
 module.exports =  new EntitySchema({
-    name: "price-size", 
-    tableName: "price-size", 
+    name: "pizzas-prices-sizes", 
+    tableName: "pizzas-prices-sizes", 
     columns: {
         id: {
             primary: true,
@@ -16,21 +16,14 @@ module.exports =  new EntitySchema({
         },
 		size:{
             type: "enum" ,
-            enum: PizzaSize
+            enum: PizzaSizes
     },
     },
     relations: {
         pizzas: {
             target: "pizzas",
             type: "many-to-one",
-            joinTable: true,
-            cascade: true,
+            nullable:false
         },
-        
     },
-
-
-    },
-
-    
-)
+})

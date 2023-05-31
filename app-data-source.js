@@ -8,9 +8,9 @@ const appDataSource = new DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [require("./pizzas/pizza.entity"), 
+    entities: [require("./pizzas/pizzas.entity"), 
                require("./orders/order.entity"),
-              require("./price-size/price-size.entity")],
+              require("./pizzas-prices-sizes/pizzas-prices-sizes.entity")],
                
     logging: true,
     synchronize: true,
