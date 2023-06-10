@@ -4,6 +4,7 @@ const { connect } = require("./app-data-source")
 const express = require("express")
 const { pizzasRouter } = require("./pizzas/pizzas.router")
 const { ordersRouter } = require("./orders/order.router")
+const { cartRouter } = require("./cart/cart.router")
 const { execute } = require("./populate-data/fill-data")
 const app = express()
 const cors = require('cors')
@@ -14,6 +15,7 @@ connect()
 
 app.use("/pizzas", pizzasRouter)
 app.use("/orders", ordersRouter)
+app.use("/cart", cartRouter)
 
 
 

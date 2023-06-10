@@ -26,6 +26,7 @@ module.exports =  new EntitySchema({
             inverseSide:"pizzas",
             cascade: true,
         },
+        
     },
 },  
 )

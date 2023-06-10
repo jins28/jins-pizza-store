@@ -10,6 +10,7 @@ const appDataSource = new DataSource({
     database: process.env.DB_NAME,
     entities: [require("./pizzas/pizzas.entity"), 
                require("./orders/order.entity"),
+               require("./cart/cart.entity"),
               require("./pizzas-prices-sizes/pizzas-prices-sizes.entity")],
                
     logging: true,

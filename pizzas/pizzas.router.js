@@ -13,15 +13,26 @@ pizzasRouter.get("/", async(req,res)=>{
         const skip = (parseInt(req.query.page) -1) * take
         
         const connection = await connect()
-        const pizzas = await connection.getRepository(pizzasEntity).find({
+        let allPizzas = await connection.getRepository(pizzasEntity).find({
+             cache:true,
+             relations: {
+              "pricesAndSizes": true,
+            }
+        })
+        allPizzas = allPizzas.length
+       const pizzas = await connection.getRepository(pizzasEntity).find({
             take,
             skip,
+            cache:true,
              relations: {
               "pricesAndSizes": true,
             }
         })
         status = 200;
-        message = pizzas;
+        message = {
+            pizzas,
+            pizzasCount: allPizzas
+        };
     }catch(e){
         status = 500;
         message = e.message;
