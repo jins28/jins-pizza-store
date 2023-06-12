@@ -4,17 +4,23 @@ const cartEntity = require("./cart.entity")
 const priceSizeEntity = require("../pizzas-prices-sizes/pizzas-prices-sizes.entity")
 
 
-cartRouter.get("/", async(req,res)=>{
+cartRouter.get("/:userId", async(req,res)=>{
     let message = "", status;
     try{
         const connection = await connect()
+        const userId = req.params.userId
         const cart = await connection.getRepository(cartEntity).find({
+          where:{userId }  ,
+            
             relations:{
-                sizeAndPrices:true,
-
+                sizeAndPrices:{
+                    pizzas:true,
+                }
+                
             }
-        })      
-        
+        })  
+     
+       
         status = 200;
         message = cart;
     }catch(e){
