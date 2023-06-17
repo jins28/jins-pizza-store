@@ -1,7 +1,7 @@
 const pizzasRouter = require("express").Router();
 const { connect } = require("../app-data-source")
 const pizzasEntity = require("./pizzas.entity")
-
+const {Like} = require ("typeorm")
 
 
 // use query params to limit and for pagination using typeorm
@@ -9,21 +9,25 @@ const pizzasEntity = require("./pizzas.entity")
 pizzasRouter.get("/", async(req,res)=>{
     let message = "", status;
     try{
+        const searchTerm = req.query.searchTerm
         const take = parseInt(req.query.perPage)
         const skip = (parseInt(req.query.page) -1) * take
         
         const connection = await connect()
         let allPizzas = await connection.getRepository(pizzasEntity).find({
-             cache:true,
+            
+         name: Like(`${searchTerm}%`),
              relations: {
               "pricesAndSizes": true,
             }
         })
         allPizzas = allPizzas.length
        const pizzas = await connection.getRepository(pizzasEntity).find({
+            
+         name: Like(`${searchTerm}%`),
             take,
             skip,
-            cache:true,
+           
              relations: {
               "pricesAndSizes": true,
             }

@@ -10,7 +10,7 @@ cartRouter.get("/:userId", async(req,res)=>{
         const connection = await connect()
         const userId = req.params.userId
         const cart = await connection.getRepository(cartEntity).find({
-          where:{userId }  ,
+          where:{userId}  ,
             
             relations:{
                 sizeAndPrices:{
